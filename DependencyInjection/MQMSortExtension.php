@@ -29,7 +29,7 @@ class MQMSortExtension extends Extension
         $bundleNS = 'mqm_sort';
         if (isset($config['factory'])) {
             $factoryClass = $config['factory']['class'];
-            $container->setParameter($bundleNS . '.factory.class', $factoryClass);
+            $container->setParameter($bundleNS . '.sort_factory.class', $factoryClass);
         }        
     }
 }
