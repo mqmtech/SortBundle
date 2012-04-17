@@ -28,10 +28,8 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($webSortManager);
         
         $webSortManager->addSort('id_a', 'field_a', 'name_a')
-                       ->addSort('id_b', 'field_b', 'name_b');
-        
-        $webSortManager->init();
-        
+                       ->addSort('id_b', 'field_b', 'name_b');        
+        $webSortManager->init();        
         $sort = $webSortManager->getCurrentSort();
         $this->assertEquals('id_a', $sort->getId());        
     }
@@ -40,7 +38,6 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
     {
         $helper = $this->mockHelper();
         $router = $this->mockRouter();
-
         $sortFactory = new WebSortFactory($helper, $router);        
         $webSortManager = new WebSortManager($helper, $sortFactory, $router);        
         
@@ -49,20 +46,15 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
     
     public function mockHelper()
     {
-        // Mock object
         $spec = $this->getMockBuilder('\MQM\Bundle\SortBundle\Helper\Helper')
                 ->disableOriginalConstructor();
-        $helperMock = $spec->getMock();
-                
-        // Mock methods
+        $helperMock = $spec->getMock();                
         $helperMock->expects($this->any())
                     ->method('getUri')
-                    ->will($this->returnValue('/path/mock'));
-        
+                    ->will($this->returnValue('/path/mock'));        
         $helperMock->expects($this->any())
                     ->method('toQueryString')
-                    ->will($this->returnValue('?query=value_mock'));
-        
+                    ->will($this->returnValue('?query=value_mock'));        
         $helperMock->expects($this->any())
                     ->method('getParametersByRequestMethod')
                     ->will($this->returnValue(new \Symfony\Component\HttpFoundation\ParameterBag()));
@@ -71,8 +63,7 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
     }
     
     public function mockRouter()
-    {
-        
+    {        
         $spec = $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
                 ->disableOriginalConstructor();
         $mock = $spec->getMock();
