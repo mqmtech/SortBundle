@@ -75,6 +75,33 @@ class WebSortManager implements SortManagerInterface
         }
     }
     
+    private function getIdFromRequestParam($str)
+    {
+        if ($str == null) {
+            return null;
+        }
+        $mode = substr($str, 0, 1);
+        if ($mode == self::DESC_SYMBOL || $mode == self::ASC_SYMBOL) {
+            $length = strlen($str);
+            return substr($str, 1, $length - 1);
+        }
+        
+        return $str;
+    }
+    
+    private function getModeFromRequestParam($str)
+    {
+        if ($str == null) {
+            return null;
+        }
+        $mode = substr($str, 0, 1);
+        if ($mode == self::DESC_SYMBOL) {
+            return self::DESC;
+        }
+        else
+            return self::ASC;
+    }
+    
     private function generateAndSetUrls()
     {
         foreach ($this->sorts as $sort) {
@@ -99,33 +126,6 @@ class WebSortManager implements SortManagerInterface
             $url = $this->router->generate($path, $parameters);
         }        
         $sort->setUrl($url);
-    }
-    
-    private function getModeFromRequestParam($str)
-    {
-        if ($str == null) {
-            return null;
-        }
-        $mode = substr($str, 0, 1);
-        if ($mode == self::DESC_SYMBOL) {
-            return self::DESC;
-        }
-        else
-            return self::ASC;
-    }
-
-    private function getIdFromRequestParam($str)
-    {
-        if ($str == null) {
-            return null;
-        }
-        $mode = substr($str, 0, 1);
-        if ($mode == self::DESC_SYMBOL || $mode == self::ASC_SYMBOL) {
-            $length = strlen($str);
-            return substr($str, 1, $length - 1);
-        }
-        
-        return $str;
     }
 
     private function generateRequestParam($mode, $id)
