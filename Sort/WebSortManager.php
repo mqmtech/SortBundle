@@ -32,6 +32,26 @@ class WebSortManager implements SortManagerInterface
         $this->responseParameters = $responseParameters;
     }
     
+    public function addSort($id, $field, $name, $mode = self::ASC)
+    {
+        if ($this->sortFactory == null) {
+            throw new NotImplementedException('Missing SortFactory dependency in WebSortManager instance');
+        }
+        $sort = $this->sortFactory->createSort();        
+        $sort->setId($id); 
+        $sort->setField($field);
+        $sort->setName($name);
+        $sort->setMode($mode);        
+        $this->sorts[$sort->getId()] = $sort;
+        
+        $current = $this->getCurrentSort();
+        if ($current == null) {
+            $this->setCurrentSort($sort);
+        }
+        
+        return $this;
+    }
+    
     public function init()
     {
         $this->determineCurrentSortMode();
@@ -81,24 +101,46 @@ class WebSortManager implements SortManagerInterface
         $sort->setUrl($url);
     }
     
-    public function addSort($id, $field, $name, $mode = self::ASC)
+    private function getModeFromRequestParam($str)
     {
-        if ($this->sortFactory == null) {
-            throw new NotImplementedException('Missing SortFactory dependency in WebSortManager instance');
+        if ($str == null) {
+            return null;
         }
-        $sort = $this->sortFactory->createSort();        
-        $sort->setId($id); 
-        $sort->setField($field);
-        $sort->setName($name);
-        $sort->setMode($mode);        
-        $this->sorts[$sort->getId()] = $sort;
-        
-        $current = $this->getCurrentSort();
-        if ($current == null) {
-            $this->setCurrentSort($sort);
+        $mode = substr($str, 0, 1);
+        if ($mode == self::DESC_SYMBOL) {
+            return self::DESC;
+        }
+        else
+            return self::ASC;
+    }
+
+    private function getIdFromRequestParam($str)
+    {
+        if ($str == null) {
+            return null;
+        }
+        $mode = substr($str, 0, 1);
+        if ($mode == self::DESC_SYMBOL || $mode == self::ASC_SYMBOL) {
+            $length = strlen($str);
+            return substr($str, 1, $length - 1);
         }
         
-        return $this;
+        return $str;
+    }
+
+    private function generateRequestParam($mode, $id)
+    {
+        $modeid = '';
+        if ($mode != null) {
+            if ($mode == self::DESC) {
+                $modeid = self::DESC_SYMBOL;
+            }
+        }
+        if ($id != null) {
+            $modeid .= $id;
+        }
+        
+        return $modeid;
     }
     
     public function switchMode()
@@ -143,47 +185,5 @@ class WebSortManager implements SortManagerInterface
     {
         $this->currentSort = $currentSort;
         $this->currentSort->setIsCurrent(true);
-    }
-    
-    private function getModeFromRequestParam($str)
-    {
-        if ($str == null) {
-            return null;
-        }
-        $mode = substr($str, 0, 1);
-        if ($mode == self::DESC_SYMBOL) {
-            return self::DESC;
-        }
-        else
-            return self::ASC;
-    }
-
-    private function getIdFromRequestParam($str)
-    {
-        if ($str == null) {
-            return null;
-        }
-        $mode = substr($str, 0, 1);
-        if ($mode == self::DESC_SYMBOL || $mode == self::ASC_SYMBOL) {
-            $length = strlen($str);
-            return substr($str, 1, $length - 1);
-        }
-        
-        return $str;
-    }
-
-    private function generateRequestParam($mode, $id)
-    {
-        $modeid = '';
-        if ($mode != null) {
-            if ($mode == self::DESC) {
-                $modeid = self::DESC_SYMBOL;
-            }
-        }
-        if ($id != null) {
-            $modeid .= $id;
-        }
-        
-        return $modeid;
     }
 }
