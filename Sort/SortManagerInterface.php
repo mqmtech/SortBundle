@@ -1,16 +1,9 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace MQM\Bundle\SortBundle\Sort;
-/**
- *
- * @author mqmtech
- */
-interface SortManagerInterface {
-    
+
+interface SortManagerInterface
+{    
     /**
      * @return string
      */
@@ -22,7 +15,6 @@ interface SortManagerInterface {
     public function setMode($mode);
     
     /**
-     *
      * @return SortInterface
      */
     public function getCurrentSort();
@@ -33,29 +25,21 @@ interface SortManagerInterface {
     public function setCurrentSort(SortInterface $currentSort);
     
     /**
-     *
      * @return SortInterfaceManager
      */
     public function switchMode();
 
     /**
-     * Add a sort item to the SortManager
-     * 
      * @param string $id
      * @param string $field
      * @param string $name
      * @param string $mode
-     * @param string $responsePath
      * @return SortManagerInterface
      */
-    public function add($id, $field, $name, $mode = 'ASC', $responsePath = null);
-    
+    public function addSort($id, $field, $name, $mode = 'ASC');    
     
     /**
-     * @return array of SortInterfaceManager
+     * @return array
      */
     public function getSorts();
-    
 }
-
-?>

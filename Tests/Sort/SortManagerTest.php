@@ -1,14 +1,4 @@
 <?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Symfony\Bundle\FrameworkBundle\Test\Sort;
 
 use MQM\Bundle\SortBundle\Sort\WebSortFactory;
@@ -28,9 +18,8 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
         $helperMock = $this->mockHelper();
         
         $this->assertTrue($helperMock instanceof \MQM\Bundle\SortBundle\Helper\Helper);
-        $this->assertEquals($helperMock->getURI(), '/path/mock');
-        $this->assertEquals($helperMock->toQueryString(array('a' => 'b')), '?query=value_mock');
-        
+        $this->assertEquals($helperMock->getUri(), '/path/mock');
+        $this->assertEquals($helperMock->toQueryString(array('a' => 'b')), '?query=value_mock');        
     }
     
     public function testWebSortManager()
@@ -38,10 +27,10 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
         $webSortManager = $this->getWebSortManager();
         $this->assertNotNull($webSortManager);
         
-        $webSortManager->add('id_a', 'field_a', 'name_a')
-                       ->add('id_b', 'field_b', 'name_b');
+        $webSortManager->addSort('id_a', 'field_a', 'name_a')
+                       ->addSort('id_b', 'field_b', 'name_b');
         
-        $webSortManager->initialize();
+        $webSortManager->init();
         
         $sort = $webSortManager->getCurrentSort();
         $this->assertEquals('id_a', $sort->getId());        
@@ -52,15 +41,11 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
         $helper = $this->mockHelper();
         $router = $this->mockRouter();
 
-        $sortFactory = new WebSortFactory($helper, $router);
-        
-        $webSortManager = new WebSortManager($helper, $sortFactory);
-        
+        $sortFactory = new WebSortFactory($helper, $router);        
+        $webSortManager = new WebSortManager($helper, $sortFactory, $router);        
         
         return $webSortManager;
     }
-    
-    //Helper functions
     
     public function mockHelper()
     {
@@ -71,7 +56,7 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
                 
         // Mock methods
         $helperMock->expects($this->any())
-                    ->method('getURI')
+                    ->method('getUri')
                     ->will($this->returnValue('/path/mock'));
         
         $helperMock->expects($this->any())
@@ -88,11 +73,10 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
     public function mockRouter()
     {
         
-         $spec = $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
+        $spec = $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
                 ->disableOriginalConstructor();
         $mock = $spec->getMock();
 
-        return $mock;
-        
+        return $mock;        
     }
 }

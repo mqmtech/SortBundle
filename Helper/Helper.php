@@ -6,67 +6,59 @@ use MQM\Bundle\SortBundle\Helper\HelperInterface as SortHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class Helper implements SortHelperInterface{
-    
+class Helper implements SortHelperInterface
+{   
     /**
-     *
-     * @var Request $request
+     * @var Request
      */
     private $request;
 
-
-    function __construct(Request $request) {
+    function __construct(Request $request)
+    {
         $this->request = $request;
     }
 
     public function toQueryString($array)
     {        
-        if($array == NULL){
-            return NULL;
-        }
-        
-        $querystring = "";
-        
+        if ($array == null) {
+            return null;
+        }        
+        $querystring = "";        
         $count = 0;
         foreach ($array as $key => $value) {
-            if($count == 0){
+            if ($count == 0) {
                 $querystring.="?";
             }
-            else{
+            else {
                 $querystring.="&";
-            }
-            
-            $querystring .=$key ."=".$value;
-                    
+            }            
+            $querystring .=$key ."=".$value;                    
             $count++;
         }
         
         return $querystring;
     }
     
-    public function getURI()
+    public function getUri()
     {
-        $path = $this->getRequest()->getPathInfo();
-        $path = $this->getRequest()->getUriForPath($path);
+        $path = $this->request->getPathInfo();
+        $path = $this->request->getUriForPath($path);
         
         return $path;
     }
     
     public function getParametersByRequestMethod()
     {
-        $request = $this->getRequest();
-        
-        if ($request  == null) {
+        if ($this->request  == null) {
             return null;
-        }
-        
-        $method = $request->getMethod();
+        }        
+        $method = $this->request->getMethod();
         $query = null;
         if ($method == 'POST') {
-            $query = $request->request;
+            $query = $this->request->request;
         }
         else {
-            $query = $request->query;
+            $query = $this->request->query;
         }
         
         return $query;
@@ -74,28 +66,14 @@ class Helper implements SortHelperInterface{
     
     public function getAllParametersFromRequestAndQuery()
     {
-        $request = $this->getRequest();
-        
-        if ($request  == null) {
+        if ($this->request  == null) {
             return null;
-        }
-        
+        }        
         $parameters = array();
-        $paramRequest = $request->request->all();
-        $paramQuery = $request->query->all();
+        $paramRequest = $this->request->request->all();
+        $paramQuery = $this->request->query->all();
         $parameters = array_merge($paramQuery, $paramRequest);        
         
         return $parameters;
     }
-    
-    public function getRequest() {
-        return $this->request;
-    }
-
-    public function setRequest($request) {
-        $this->request = $request;
-    }
-
-
-
 }

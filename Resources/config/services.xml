@@ -5,29 +5,29 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
         
     <parameters>
+        <parameter key="mqm_sort.twig_extension.class">MQM\Bundle\SortBundle\Twig\Extension\SortExtension</parameter>
         <parameter key="mqm_sort.sort_manager.class">MQM\Bundle\SortBundle\Sort\SortManagerInterface</parameter>
         <parameter key="mqm_sort.sort_factory.class">MQM\Bundle\SortBundle\Sort\WebSortFactory</parameter>
         <parameter key="mqm_sort.helper.class">MQM\Bundle\SortBundle\Helper\Helper</parameter>
     </parameters>
     
     <services>
-        <service id="mqm_sort" alias="mqm_sort.sort_manager"/> <!-- user-friendly name that redirects to the main service of the bundle, sort_manager service -->
-        
-        <service id="mqm_sort.sort_manager" class="%mqm_sort.sort_manager.class%" public="true"
-                scope="request"
-                factory-service="mqm_sort.sort_factory"
-                factory-method="buildSortManager"
-                >
+        <service id="mqm_sort.twig_extension" class="%mqm_sort.twig_extension.class%" public="true">
+            <tag name="twig.extension" />
+            <argument type="service" id="service_container" />
         </service>
         
-        <service id="mqm_sort.sort_factory" class="%mqm_sort.sort_factory.class%" public="true"
-            scope="request">
+        <service id="mqm_sort.sort_manager" class="%mqm_sort.sort_manager.class%" public="true" scope="request"
+                factory-service="mqm_sort.sort_factory"
+                factory-method="createSortManager">
+        </service>
+        
+        <service id="mqm_sort.sort_factory" class="%mqm_sort.sort_factory.class%" public="true" scope="request">
             <argument type="service" id="mqm_sort.helper" />
             <argument type="service" id="router" />
         </service>
         
-        <service id="mqm_sort.helper" class="%mqm_sort.helper.class%" public="true"
-            scope="request">
+        <service id="mqm_sort.helper" class="%mqm_sort.helper.class%" public="true" scope="request">
             <argument type="service" id="request" />
         </service>
     </services>

@@ -1,69 +1,53 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace MQM\Bundle\SortBundle\Sort;
-/**
- * Description of SortingUtils
- *
- * @author mqmtech
- */
-class WebSortHelper {
 
-    const REQUEST_QUERY_PARAM = "sort";
-    
-    //Keys
-    const KEY_ID = "id";
-    //End Keys
-    
-    //Values
-     const VALUE_MODE_ASC = "ASC";
-     const VALUE_MODE_ASC_SYMBOL = "+";
-     const VALUE_MODE_DESC = "DESC";
-     const VALUE_MODE_DESC_SYMBOL = "-";
-    //End Values
-    
-    
-    public static function getModeFromModeId($str) {
-        if ($str == NULL) {
-            return NULL;
+class WebSortHelper
+{
+    const ASC = 'ASC';
+    const ASC_SYMBOL = '+';
+    const DESC = 'DESC';
+    const DESC_SYMBOL = '-';
+
+    public static function getModeFromRequestParam($str)
+    {
+        if ($str == null) {
+            return null;
         }
         $mode = substr($str, 0, 1);
-        if ($mode == self::VALUE_MODE_DESC_SYMBOL) {
-            return self::VALUE_MODE_DESC;
+        if ($mode == self::DESC_SYMBOL) {
+            return self::DESC;
         }
         else
-            return self::VALUE_MODE_ASC;
+            return self::ASC;
     }
 
-    public static function getIdFromModeId($str) {
-        if ($str == NULL) {
-            return NULL;
+    public static function getIdFromRequestParam($str)
+    {
+        if ($str == null) {
+            return null;
         }
         $mode = substr($str, 0, 1);
-
-        if ($mode == self::VALUE_MODE_DESC_SYMBOL || $mode == self::VALUE_MODE_ASC_SYMBOL) {
+        if ($mode == self::DESC_SYMBOL || $mode == self::ASC_SYMBOL) {
             $length = strlen($str);
             return substr($str, 1, $length - 1);
         }
+        
         return $str;
     }
 
-    public static function generateModeId($mode, $id) {
-        $modeid = "";
-        if ($mode != NULL) {
-            if ($mode == self::VALUE_MODE_DESC) {
-                $modeid = self::VALUE_MODE_DESC_SYMBOL;
+    public static function generateRequestParam($mode, $id)
+    {
+        $modeid = '';
+        if ($mode != null) {
+            if ($mode == self::DESC) {
+                $modeid = self::DESC_SYMBOL;
             }
         }
-        if ($id != NULL) {
+        if ($id != null) {
             $modeid .= $id;
         }
+        
         return $modeid;
-    }    
-
+    }
 }
-
-?>

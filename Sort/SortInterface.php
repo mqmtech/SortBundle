@@ -1,14 +1,7 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace MQM\Bundle\SortBundle\Sort;
-/**
- *
- * @author mqmtech
- */
+
 interface SortInterface {
 
     /**
@@ -20,6 +13,11 @@ interface SortInterface {
      * @param int
      */
     public function setId($id);
+    
+    /**
+     * @return array 
+     */
+    public function toArray();
     
     /**
      * @return string
@@ -40,6 +38,16 @@ interface SortInterface {
      * @param bool
      */
     public function setIsCurrent($isCurrent);
+    
+    /**
+     * @return string 
+     */
+    public function getField();
+
+    /**
+     * @param string 
+     */
+    public function setField($field);
 
     /**
      * @return string
@@ -50,12 +58,4 @@ interface SortInterface {
      * @param string
      */
     public function setMode($mode);
-        
-    /**
-     * @return SortInterface
-     */
-    public function switchMode();
-    
 }
-
-?>
