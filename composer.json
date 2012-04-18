@@ -22,7 +22,7 @@
         "doctrine/couchdb-odm-bundle": "*"
     },
     "autoload": {
-        "psr-0": { "MQM\\Bundle\\SortBundle": "" }
+        "psr-0": { "MQM\\SortBundle": "" }
     },
     "target-dir": "MQM/SortBundle"
 }
