@@ -7,12 +7,11 @@ use MQM\Bundle\SortBundle\Sort\SortFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Locale\Exception\NotImplementedException;
 
+
 class WebSortManager implements SortManagerInterface
 {    
     const REQUEST_SORT_MODE_PARAM_NAME = 'sort';
-    const ASC = 'ASC';
     const ASC_SYMBOL = '+';
-    const DESC = 'DESC';
     const DESC_SYMBOL = '-';
     
     private $helper;
@@ -30,6 +29,19 @@ class WebSortManager implements SortManagerInterface
         $this->router = $router;
         $this->responsePath = $responsePath;
         $this->responseParameters = $responseParameters;
+        
+    }
+    
+    public function sortQuery($query) {
+        throw new NotImplementedException('sortQuery method is not implemented by WebSortManager, use QuerySortManager class instead');
+    }
+    
+    public function init(array $sorts = null)
+    {
+        $this->determineCurrentSort();
+        $this->assignUrlPerSort();
+        
+        return $this;
     }
     
     public function addSort($id, $field, $name, $mode = self::ASC)
@@ -44,35 +56,39 @@ class WebSortManager implements SortManagerInterface
         $sort->setMode($mode);        
         $this->sorts[$sort->getId()] = $sort;
         
-        $current = $this->getCurrentSort();
-        if ($current == null) {
-            $this->setCurrentSort($sort);
-        }
-        
         return $this;
     }
     
-    public function init()
+    private function determineCurrentSort()
     {
-        $this->determineCurrentSortMode();
-        $this->generateAndSetUrls();
-        
-        return $this;
+        $this->determineCurrentSortFromUrl();
+        if ($this->getCurrentSort() == null) {
+            $this->determineCurrentSortByDefault();
+        }
     }
     
-    private function determineCurrentSortMode()
+    private function determineCurrentSortFromUrl()
     {
         $query = $this->helper->getParametersByRequestMethod();
-        $modeId = $query->get(self::REQUEST_SORT_MODE_PARAM_NAME);
-        $id = $this->getIdFromRequestParam($modeId);
-        $mode = $this->getModeFromRequestParam($modeId);
-        if ($id != null) {
+        $requestParam = $query->get(self::REQUEST_SORT_MODE_PARAM_NAME);
+        if ($requestParam != null) {
+            $id = $this->getIdFromRequestParam($requestParam);
+            $mode = $this->getModeFromRequestParam($requestParam);        
             if (isset($this->sorts[$id])) {
                 $sort = $this->sorts[$id];
                 $sort->setMode($mode);
                 $this->setCurrentSort($sort);
             }
         }
+    }
+    
+    private function determineCurrentSortByDefault()
+    {
+        $firtElement = current($this->sorts);
+        if ($firtElement == false) {
+            return;
+        }
+        $this->setCurrentSort($firtElement);
     }
     
     private function getIdFromRequestParam($str)
@@ -102,14 +118,14 @@ class WebSortManager implements SortManagerInterface
             return self::ASC;
     }
     
-    private function generateAndSetUrls()
+    private function assignUrlPerSort()
     {
         foreach ($this->sorts as $sort) {
-            $this->generateAndSetUrlToSort($sort);
+            $this->assignUrlToSort($sort);
         }
     }
     
-    private function generateAndSetUrlToSort($sort)
+    private function assignUrlToSort($sort)
     {
         $url = 'no_url';
         $parameters = $this->responseParameters;
@@ -146,44 +162,40 @@ class WebSortManager implements SortManagerInterface
     public function switchMode()
     {        
         $currentSort = $this->getCurrentSort();
-        $currentMode = $this->getMode();
+        $currentMode = $currentSort->getMode();
         if ($currentMode == self::ASC) {
             $currentSort->setMode(self::DESC);
         }
         else {
             $currentSort->setMode(self::ASC);
         }
-        $this->generateAndSetUrlToSort($currentSort);
+        $this->assignUrlToSort($currentSort);
 
         return $this;
-    }
-
-    public function getMode() 
-    {
-        $current = $this->getCurrentSort();
-        
-        return $current->getMode();
-    }
-
-    public function setMode($mode) 
-    {
-        $current = $this->getCurrentSort();
-        $current->setMode($mode);
     }
     
     public function getSorts()
     {
         return $this->sorts;
-    }
+    }    
     
     public function getCurrentSort()
     {
         return $this->currentSort;
     }
     
-    public function setCurrentSort(SortInterface $currentSort)
+    public function setCurrentSort($currentSort)
     {
-        $this->currentSort = $currentSort;
-        $this->currentSort->setIsCurrent(true);
+        if (is_a($currentSort, 'MQM\Bundle\SortBundle\Sort\SortInterface')) {
+            $this->currentSort = $currentSort;
+        }
+        else if (is_string($currentSort)) {
+            $sort = $this->sorts[$currentSort];
+            if ($sort != null) {
+                $this->currentSort = $sort;
+            }            
+        }
+        
+        return $this;
     }
 }

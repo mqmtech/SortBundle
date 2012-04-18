@@ -4,25 +4,19 @@ namespace MQM\Bundle\SortBundle\Sort;
 
 interface SortManagerInterface
 {    
-    /**
-     * @return string
-     */
-    public function getMode();
-
-    /**
-     * @param string
-     */
-    public function setMode($mode);
+    const ASC = 'ASC';
+    const DESC = 'DESC';
     
     /**
-     * @return SortInterface
+     * @return SortManagerInterface 
      */
-    public function getCurrentSort();
+    public function init(array $sorts = null);
     
     /**
-     * @param SortInterface
+     * @param query
+     * @return query 
      */
-    public function setCurrentSort(SortInterface $currentSort);
+    public function sortQuery($query);
     
     /**
      * @return SortInterfaceManager
@@ -34,9 +28,20 @@ interface SortManagerInterface
      * @param string $field
      * @param string $name
      * @param string $mode
+     * 
      * @return SortManagerInterface
      */
-    public function addSort($id, $field, $name, $mode = 'ASC');    
+    public function addSort($id, $field, $name, $mode = self::ASC); 
+    
+    /**
+     * @return SortInterface
+     */
+    public function getCurrentSort();
+    
+    /**
+     * @param SortInterface|string sort id
+     */
+    public function setCurrentSort($currentSort);
     
     /**
      * @return array

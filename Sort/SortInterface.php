@@ -15,11 +15,6 @@ interface SortInterface {
     public function setId($id);
     
     /**
-     * @return array 
-     */
-    public function toArray();
-    
-    /**
      * @return string
      */
     public function getName();
@@ -28,17 +23,7 @@ interface SortInterface {
      * @param string
      */
     public function setName($name);            
-        
-    /**
-     * @return bool
-     */
-    public function getIsCurrent();
-
-    /**
-     * @param bool
-     */
-    public function setIsCurrent($isCurrent);
-    
+   
     /**
      * @return string 
      */

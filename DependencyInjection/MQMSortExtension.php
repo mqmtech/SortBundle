@@ -24,6 +24,7 @@ class MQMSortExtension extends Extension
         
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('orm.xml');
         
         // set user variables in the container
         $bundleNS = 'mqm_sort';

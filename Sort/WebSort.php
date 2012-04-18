@@ -2,18 +2,16 @@
 
 namespace MQM\Bundle\SortBundle\Sort;
 
-use MQM\Bundle\SortBundle\Helper\HelperInterface;
-use Symfony\Component\Routing\Router;
-use MQM\ToolsBundle\Service\Utils;
+use MQM\Bundle\SortBundle\Sort\SortInterface;
 
 class WebSort implements SortInterface
-{   
+{
     private $id;
     private $field;
-    private $mode;    
+    private $mode;
     private $name;
-    private $isCurrent;
-    private $url;    
+    private $url;
+    private $options;
 
     public function getUrl()
     {        
@@ -23,11 +21,6 @@ class WebSort implements SortInterface
     public function setUrl($url)
     {   
         $this->url = $url;
-    }
-    
-    public function toArray()
-    {
-        return array($this->getField() => $this->getMode());
     }
         
     public function getId()
@@ -50,16 +43,6 @@ class WebSort implements SortInterface
         $this->name = $name;
     }
         
-    public function getIsCurrent()
-    {
-        return $this->isCurrent;
-    }
-
-    public function setIsCurrent($isCurrent)
-    {
-        $this->isCurrent = $isCurrent;
-    }    
-        
     public function getField()
     {
         return $this->field;
@@ -78,5 +61,15 @@ class WebSort implements SortInterface
     public function setMode($mode)
     {
         $this->mode = $mode;
+    }
+    
+    public function getOptions()
+    {
+        return $this->options;
+    }
+    
+    public function setOptions($options)
+    {
+        $this->options = $options;
     }
 }
