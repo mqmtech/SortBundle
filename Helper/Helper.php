@@ -1,8 +1,8 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Helper;
+namespace MQM\SortBundle\Helper;
 
-use MQM\Bundle\SortBundle\Helper\HelperInterface as SortHelperInterface;
+use MQM\SortBundle\Helper\HelperInterface as SortHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 

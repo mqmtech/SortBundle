@@ -1,11 +1,11 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Sort;
+namespace MQM\SortBundle\Sort;
 
-use MQM\Bundle\SortBundle\Helper\HelperInterface;
+use MQM\SortBundle\Helper\HelperInterface;
 use Symfony\Component\Routing\RouterInterface;
-use MQM\Bundle\SortBundle\Sort\SortInterface;
-use MQM\Bundle\SortBundle\Sort\SortManagerInterface;
+use MQM\SortBundle\Sort\SortInterface;
+use MQM\SortBundle\Sort\SortManagerInterface;
 
 class WebSortFactory implements SortFactoryInterface
 {

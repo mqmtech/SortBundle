@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\Bundle\SortBundle;
+namespace MQM\SortBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

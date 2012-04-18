@@ -1,8 +1,8 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Sort;
+namespace MQM\SortBundle\Sort;
 
-use MQM\Bundle\SortBundle\Sort\SortInterface;
+use MQM\SortBundle\Sort\SortInterface;
 
 class WebSort implements SortInterface
 {

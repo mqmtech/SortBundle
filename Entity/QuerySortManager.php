@@ -1,8 +1,8 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Entity;
+namespace MQM\SortBundle\Entity;
 
-use MQM\Bundle\SortBundle\Sort\SortManagerInterface;
+use MQM\SortBundle\Sort\SortManagerInterface;
 
 class QuerySortManager implements SortManagerInterface
 {

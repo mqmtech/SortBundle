@@ -1,8 +1,8 @@
 <?php
 namespace Symfony\Bundle\FrameworkBundle\Test\Sort;
 
-use MQM\Bundle\SortBundle\Sort\WebSortFactory;
-use MQM\Bundle\SortBundle\Sort\WebSortManager;
+use MQM\SortBundle\Sort\WebSortFactory;
+use MQM\SortBundle\Sort\WebSortManager;
 
 class SortManagerTest extends \PHPUnit_Framework_TestCase
 {   
@@ -17,7 +17,7 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
     {
         $helperMock = $this->mockHelper();
         
-        $this->assertTrue($helperMock instanceof \MQM\Bundle\SortBundle\Helper\Helper);
+        $this->assertTrue($helperMock instanceof \MQM\SortBundle\Helper\Helper);
         $this->assertEquals($helperMock->getUri(), '/path/mock');
         $this->assertEquals($helperMock->toQueryString(array('a' => 'b')), '?query=value_mock');        
     }
@@ -46,7 +46,7 @@ class SortManagerTest extends \PHPUnit_Framework_TestCase
     
     public function mockHelper()
     {
-        $spec = $this->getMockBuilder('\MQM\Bundle\SortBundle\Helper\Helper')
+        $spec = $this->getMockBuilder('\MQM\SortBundle\Helper\Helper')
                 ->disableOriginalConstructor();
         $helperMock = $spec->getMock();                
         $helperMock->expects($this->any())

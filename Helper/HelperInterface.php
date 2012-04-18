@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Helper;
+namespace MQM\SortBundle\Helper;
 /**
  *
  * @author mqmtech

@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Sort;
+namespace MQM\SortBundle\Sort;
 
 interface SortFactoryInterface {
    

@@ -1,9 +1,9 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Sort;
+namespace MQM\SortBundle\Sort;
 
-use MQM\Bundle\SortBundle\Helper\HelperInterface;
-use MQM\Bundle\SortBundle\Sort\SortFactoryInterface;
+use MQM\SortBundle\Helper\HelperInterface;
+use MQM\SortBundle\Sort\SortFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Locale\Exception\NotImplementedException;
 
@@ -186,7 +186,7 @@ class WebSortManager implements SortManagerInterface
     
     public function setCurrentSort($currentSort)
     {
-        if (is_a($currentSort, 'MQM\Bundle\SortBundle\Sort\SortInterface')) {
+        if (is_a($currentSort, 'MQM\SortBundle\Sort\SortInterface')) {
             $this->currentSort = $currentSort;
         }
         else if (is_string($currentSort)) {

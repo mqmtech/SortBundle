@@ -5,13 +5,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
         
     <parameters>
-        <parameter key="mqm_sort.twig_extension.class">MQM\Bundle\SortBundle\Twig\Extension\SortExtension</parameter>
-        <parameter key="mqm_sort.sort_manager.class">MQM\Bundle\SortBundle\Sort\SortManagerInterface</parameter>        
-        <parameter key="mqm_sort.query_sort_manager.class">MQM\Bundle\SortBundle\Entity\QuerySortManager</parameter>    
-        <parameter key="mqm_sort.web_sort_manager.class">MQM\Bundle\SortBundle\Sort\WebSortManager</parameter>        
-        <parameter key="mqm_sort.web_sort.class">MQM\Bundle\SortBundle\Sort\WebSort</parameter> 
-        <parameter key="mqm_sort.web_sort_factory.class">MQM\Bundle\SortBundle\Sort\WebSortFactory</parameter>
-        <parameter key="mqm_sort.helper.class">MQM\Bundle\SortBundle\Helper\Helper</parameter>
+        <parameter key="mqm_sort.twig_extension.class">MQM\SortBundle\Twig\Extension\SortExtension</parameter>
+        <parameter key="mqm_sort.sort_manager.class">MQM\SortBundle\Sort\SortManagerInterface</parameter>        
+        <parameter key="mqm_sort.query_sort_manager.class">MQM\SortBundle\Entity\QuerySortManager</parameter>    
+        <parameter key="mqm_sort.web_sort_manager.class">MQM\SortBundle\Sort\WebSortManager</parameter>        
+        <parameter key="mqm_sort.web_sort.class">MQM\SortBundle\Sort\WebSort</parameter> 
+        <parameter key="mqm_sort.web_sort_factory.class">MQM\SortBundle\Sort\WebSortFactory</parameter>
+        <parameter key="mqm_sort.helper.class">MQM\SortBundle\Helper\Helper</parameter>
     </parameters>
     
     <services>

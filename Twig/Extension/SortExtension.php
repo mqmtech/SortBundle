@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\Twig\Extension;
+namespace MQM\SortBundle\Twig\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

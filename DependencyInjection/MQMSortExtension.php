@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\Bundle\SortBundle\DependencyInjection;
+namespace MQM\SortBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
