@@ -33,4 +33,4 @@ interface HelperInterface {
     public function getAllParametersFromRequestAndQuery();    
 }
 
-?>
+
