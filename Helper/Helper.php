@@ -4,7 +4,7 @@ namespace MQM\SortBundle\Helper;
 
 use MQM\SortBundle\Helper\HelperInterface as SortHelperInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\ParameterBag;
+
 
 class Helper implements SortHelperInterface
 {   

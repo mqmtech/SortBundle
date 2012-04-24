@@ -4,8 +4,8 @@ namespace MQM\SortBundle\Sort;
 
 use MQM\SortBundle\Helper\HelperInterface;
 use Symfony\Component\Routing\RouterInterface;
-use MQM\SortBundle\Sort\SortInterface;
-use MQM\SortBundle\Sort\SortManagerInterface;
+
+
 
 class WebSortFactory implements SortFactoryInterface
 {
