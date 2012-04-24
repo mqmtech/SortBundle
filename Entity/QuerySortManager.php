@@ -40,9 +40,9 @@ class QuerySortManager implements SortManagerInterface
         return $query;
     }
 
-    public function addSort($id, $field, $name, $mode = self::ASC)
+    public function addSort($id, $field, $name, $mode = self::ASC, array $options = array())
     {
-        $this->sortManager->addSort($id, $field, $name, $mode);
+        $this->sortManager->addSort($id, $field, $name, $mode, $options);
         
         return $this;
     }

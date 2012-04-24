@@ -2,8 +2,8 @@
 
 namespace MQM\SortBundle\Sort;
 
-interface SortFactoryInterface {
-   
+interface SortFactoryInterface
+{   
     /**
      * @return SortInterface
      */

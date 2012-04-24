@@ -31,7 +31,7 @@ interface SortManagerInterface
      * 
      * @return SortManagerInterface
      */
-    public function addSort($id, $field, $name, $mode = self::ASC); 
+    public function addSort($id, $field, $name, $mode = self::ASC, array $options = array()); 
     
     /**
      * @return SortInterface

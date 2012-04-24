@@ -44,7 +44,7 @@ class WebSortManager implements SortManagerInterface
         return $this;
     }
     
-    public function addSort($id, $field, $name, $mode = self::ASC)
+    public function addSort($id, $field, $name, $mode = self::ASC, array $options = array())
     {
         if ($this->sortFactory == null) {
             throw new NotImplementedException('Missing SortFactory dependency in WebSortManager instance');
@@ -55,6 +55,9 @@ class WebSortManager implements SortManagerInterface
         $sort->setName($name);
         $sort->setMode($mode);        
         $this->sorts[$sort->getId()] = $sort;
+        if (isset($options['default']) && $options['default']) {
+            $this->setCurrentSort($sort);
+        }        
         
         return $this;
     }
