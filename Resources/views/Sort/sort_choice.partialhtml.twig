@@ -1,0 +1,10 @@
+<link href="{{ asset('bundles/mqmsort/css/sort.css') }}" rel="stylesheet" type="text/css" />
+
+{% if sortManager is defined and sortManager != null and sortManager.sorts | length > 0%}
+<div class="mqm_sort_choice_container">
+    {% set currentSort = sortManager.currentSort %}
+    {%for sort in sortManager.sorts%}
+    <div class="mqm_sort_choice "{% if(sort == currentSort) %}current{% endif %}"><a href="{{ sort.url}}"><span>{{sort.name}}</span></a></div>
+    {%endfor%}
+</div>
+{% endif %}

@@ -1,0 +1,15 @@
+.mqm_sort_choice_container {
+    height: 28px;
+    border-bottom: 1px solid #ccc;
+    line-height: 28px;
+    padding-left: 10px;
+    font-size: 12px;
+    width: 716px;
+    text-shadow: #fffeff 1px 1px 0;
+}
+
+.mqm_sort_choice {
+    float: left;
+    width: 100px;
+    color: #258cdb;
+}

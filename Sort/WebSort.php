@@ -7,11 +7,21 @@ use MQM\SortBundle\Sort\SortInterface;
 class WebSort implements SortInterface
 {
     private $id;
-    private $field;
+    private $field = array();
     private $mode;
     private $name;
     private $url;
     private $options;
+    
+    public function __construct()
+    {
+        $this->init();
+    }
+    
+    protected function init()
+    {
+        $this->field = $this->getDefaultFieldOptions();
+    }
 
     public function getUrl()
     {        
@@ -43,14 +53,36 @@ class WebSort implements SortInterface
         $this->name = $name;
     }
         
-    public function getField()
+    public function getField($entityAlias = '')
     {
-        return $this->field;
+        if (isset($this->field['appendEntityAlias']) && $this->field['appendEntityAlias']) {
+            $entityAlias = $entityAlias == '' ?: $entityAlias . '.';
+            
+            return $entityAlias . $this->field['name'];
+        }
+        
+        return $this->field['name'];        
     }
 
     public function setField($field)
     {
-        $this->field = $field;
+        if (is_array($field)) {
+            $this->field = $field;
+        }
+        else if (is_string($field)){
+            $this->field['name'] = $field;
+        }
+        else {
+            throw new \Exception('NotValid variable type of field, must be string or array');
+        }
+    }
+    
+    protected function getDefaultFieldOptions()
+    {
+        return array(
+            'appendEntityAlias' => true,
+            'name'           => '',
+        );
     }
 
     public function getMode()
