@@ -55,13 +55,12 @@ class WebSort implements SortInterface
         
     public function getField($entityAlias = '')
     {
-        if (isset($this->field['appendEntityAlias']) && $this->field['appendEntityAlias']) {
-            $entityAlias = $entityAlias == '' ?: $entityAlias . '.';
-            
-            return $entityAlias . $this->field['name'];
+        if (isset($this->field['ignoreEntityAlias']) && $this->field['ignoreEntityAlias']) {
+            return $this->field['name'];
         }
-        
-        return $this->field['name'];        
+        $entityAlias = $entityAlias == '' ?: $entityAlias . '.';
+
+        return $entityAlias . $this->field['name'];
     }
 
     public function setField($field)
@@ -80,7 +79,7 @@ class WebSort implements SortInterface
     protected function getDefaultFieldOptions()
     {
         return array(
-            'appendEntityAlias' => true,
+            'ignoreEntityAlias' => false,
             'name'           => '',
         );
     }
