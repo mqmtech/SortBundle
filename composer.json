@@ -1,5 +1,5 @@
 {
-    "name": "mqmtech/sort-bundle",
+    "name": "mqm/sort-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SortBundle",
     "keywords": ["WebTools Sort"],
